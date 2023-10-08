@@ -49,6 +49,8 @@ func (self *FilteredList[T]) GetFilteredList() []T {
 	if self.filteredIndices == nil {
 		return self.getList()
 	}
+
+	self.applyFilter()
 	return utils.ValuesAtIndices(self.getList(), self.filteredIndices)
 }
 
