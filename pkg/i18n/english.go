@@ -451,6 +451,7 @@ type TranslationSet struct {
 	CommitAuthor                        string
 	CopyCommitAttributeToClipboard      string
 	CopyBranchNameToClipboard           string
+	CopyBranchAttributeToClipboard      string
 	CopyFileNameToClipboard             string
 	CopyCommitFileNameToClipboard       string
 	CommitPrefixPatternError            string
@@ -1248,6 +1249,7 @@ func EnglishTranslationSet() TranslationSet {
 		CommitAuthor:                        "Commit author",
 		CopyCommitAttributeToClipboard:      "Copy commit attribute",
 		CopyBranchNameToClipboard:           "Copy branch name to clipboard",
+		CopyBranchAttributeToClipboard:      "Copy branch attribute",
 		CopyFileNameToClipboard:             "Copy the file name to the clipboard",
 		CopyCommitFileNameToClipboard:       "Copy the committed file name to the clipboard",
 		CopySelectedTexToClipboard:          "Copy the selected text to the clipboard",

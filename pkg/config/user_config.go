@@ -362,20 +362,21 @@ type KeybindingFilesConfig struct {
 }
 
 type KeybindingBranchesConfig struct {
-	CreatePullRequest      string `yaml:"createPullRequest"`
-	ViewPullRequestOptions string `yaml:"viewPullRequestOptions"`
-	CopyPullRequestURL     string `yaml:"copyPullRequestURL"`
-	CheckoutBranchByName   string `yaml:"checkoutBranchByName"`
-	ForceCheckoutBranch    string `yaml:"forceCheckoutBranch"`
-	RebaseBranch           string `yaml:"rebaseBranch"`
-	RenameBranch           string `yaml:"renameBranch"`
-	MergeIntoCurrentBranch string `yaml:"mergeIntoCurrentBranch"`
-	ViewGitFlowOptions     string `yaml:"viewGitFlowOptions"`
-	FastForward            string `yaml:"fastForward"`
-	CreateTag              string `yaml:"createTag"`
-	PushTag                string `yaml:"pushTag"`
-	SetUpstream            string `yaml:"setUpstream"`
-	FetchRemote            string `yaml:"fetchRemote"`
+	CreatePullRequest              string `yaml:"createPullRequest"`
+	ViewPullRequestOptions         string `yaml:"viewPullRequestOptions"`
+	CopyBranchAttributeToClipboard string `yaml:"copyBranchAttributeToClipboard"`
+	CopyPullRequestURL             string `yaml:"copyPullRequestURL"`
+	CheckoutBranchByName           string `yaml:"checkoutBranchByName"`
+	ForceCheckoutBranch            string `yaml:"forceCheckoutBranch"`
+	RebaseBranch                   string `yaml:"rebaseBranch"`
+	RenameBranch                   string `yaml:"renameBranch"`
+	MergeIntoCurrentBranch         string `yaml:"mergeIntoCurrentBranch"`
+	ViewGitFlowOptions             string `yaml:"viewGitFlowOptions"`
+	FastForward                    string `yaml:"fastForward"`
+	CreateTag                      string `yaml:"createTag"`
+	PushTag                        string `yaml:"pushTag"`
+	SetUpstream                    string `yaml:"setUpstream"`
+	FetchRemote                    string `yaml:"fetchRemote"`
 }
 
 type KeybindingWorktreesConfig struct {
@@ -753,20 +754,21 @@ func GetDefaultConfig() *UserConfig {
 				ConfirmDiscard:           "x",
 			},
 			Branches: KeybindingBranchesConfig{
-				CopyPullRequestURL:     "<c-y>",
-				CreatePullRequest:      "o",
-				ViewPullRequestOptions: "O",
-				CheckoutBranchByName:   "c",
-				ForceCheckoutBranch:    "F",
-				RebaseBranch:           "r",
-				RenameBranch:           "R",
-				MergeIntoCurrentBranch: "M",
-				ViewGitFlowOptions:     "i",
-				FastForward:            "f",
-				CreateTag:              "T",
-				PushTag:                "P",
-				SetUpstream:            "u",
-				FetchRemote:            "f",
+				CopyPullRequestURL:             "<c-y>",
+				CopyBranchAttributeToClipboard: "y",
+				CreatePullRequest:              "o",
+				ViewPullRequestOptions:         "O",
+				CheckoutBranchByName:           "c",
+				ForceCheckoutBranch:            "F",
+				RebaseBranch:                   "r",
+				RenameBranch:                   "R",
+				MergeIntoCurrentBranch:         "M",
+				ViewGitFlowOptions:             "i",
+				FastForward:                    "f",
+				CreateTag:                      "T",
+				PushTag:                        "P",
+				SetUpstream:                    "u",
+				FetchRemote:                    "f",
 			},
 			Worktrees: KeybindingWorktreesConfig{
 				ViewWorktreeOptions: "w",

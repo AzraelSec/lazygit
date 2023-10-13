@@ -9,6 +9,7 @@ import (
 type IHostHelper interface {
 	GetPullRequestURL(from string, to string) (string, error)
 	GetCommitURL(commitSha string) (string, error)
+	GetBranchURL(branch string) (string, error)
 }
 
 type HostHelper struct {

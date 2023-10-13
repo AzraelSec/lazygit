@@ -55,6 +55,12 @@ func (self *BranchesController) GetKeybindings(opts types.KeybindingsOpts) []*ty
 			OpensMenu:   true,
 		},
 		{
+			Key:         opts.GetKey(opts.Config.Branches.CopyBranchAttributeToClipboard),
+			Handler:     self.copyBranchAttributeToClipboard,
+			Description: self.c.Tr.CopyBranchAttributeToClipboard,
+			OpensMenu:   true,
+		},
+		{
 			Key:         opts.GetKey(opts.Config.Branches.CopyPullRequestURL),
 			Handler:     self.copyPullRequestURL,
 			Description: self.c.Tr.CopyPullRequestURL,
@@ -328,6 +334,19 @@ func (self *BranchesController) handleCreatePullRequestMenu(selectedBranch *mode
 	checkedOutBranch := self.c.Helpers().Refs.GetCheckedOutRef()
 
 	return self.createPullRequestMenu(selectedBranch, checkedOutBranch)
+}
+
+func (self *BranchesController) copyBranchAttributeToClipboard() error {
+	branch := self.context().GetSelected()
+	if branch == nil {
+		return nil
+	}
+
+	if !self.c.Git().Remote.CheckRemoteBranchExists(branch.Name) {
+		return self.c.Error(errors.New(self.c.Tr.NoBranchOnRemote))
+	}
+
+
 }
 
 func (self *BranchesController) copyPullRequestURL() error {
