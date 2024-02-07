@@ -327,13 +327,18 @@ func (self *RebaseCommands) SquashAllAboveFixupCommits(commit *models.Commit) er
 	return self.runSkipEditorCommand(self.cmd.New(cmdArgs))
 }
 
-// BeginInteractiveRebaseForCommit starts an interactive rebase to edit the current
-// commit and pick all others. After this you'll want to call `self.ContinueRebase()
-func (self *RebaseCommands) BeginInteractiveRebaseForCommit(
-	commits []*models.Commit, commitIndex int, keepCommitsThatBecomeEmpty bool,
-) error {
-	if len(commits)-1 < commitIndex {
-		return errors.New("index outside of range of commits")
+func (self *RebaseCommands) BeginInteractiveRebaseForCommits(commits []*models.Commit, commitIndexes []int, keepCommitsThatBecomeEmpty bool) error {
+	if len(commits) == 0 {
+		// note: empty list of commits - just exit
+		return nil
+	}
+
+	baseShaOrRoot := getBaseShaOrRoot(commits, commitIndexes[len(commitIndexes)-1]+1)
+
+	for commitIndex := range commits {
+		if len(commits)-1 < commitIndex {
+			return errors.New("index outside of range of commits")
+		}
 	}
 
 	// we can make this GPG thing possible it just means we need to do this in two parts:
@@ -343,18 +348,31 @@ func (self *RebaseCommands) BeginInteractiveRebaseForCommit(
 		return errors.New(self.Tr.DisabledForGPG)
 	}
 
-	changes := []daemon.ChangeTodoAction{{
-		Sha:       commits[commitIndex].Sha,
-		NewAction: todo.Edit,
-	}}
+	// fix: use a single commit array traverse
+	changes := make([]daemon.ChangeTodoAction, 0, len(commits))
+	for commitIndex := range commits {
+		changes = append(changes, daemon.ChangeTodoAction{
+			Sha:       commits[commitIndex].Sha,
+			NewAction: todo.Edit,
+		})
+	}
+
 	self.os.LogCommand(logTodoChanges(changes), false)
 
 	return self.PrepareInteractiveRebaseCommand(PrepareInteractiveRebaseCommandOpts{
-		baseShaOrRoot:              getBaseShaOrRoot(commits, commitIndex+1),
+		baseShaOrRoot:              baseShaOrRoot,
 		overrideEditor:             true,
 		keepCommitsThatBecomeEmpty: keepCommitsThatBecomeEmpty,
 		instruction:                daemon.NewChangeTodoActionsInstruction(changes),
 	}).Run()
+}
+
+// BeginInteractiveRebaseForCommit starts an interactive rebase to edit the current
+// commit and pick all others. After this you'll want to call `self.ContinueRebase()
+func (self *RebaseCommands) BeginInteractiveRebaseForCommit(
+	commits []*models.Commit, commitIndex int, keepCommitsThatBecomeEmpty bool,
+) error {
+	return self.BeginInteractiveRebaseForCommits(commits, []int{commitIndex}, keepCommitsThatBecomeEmpty)
 }
 
 // RebaseBranch interactive rebases onto a branch

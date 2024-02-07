@@ -238,7 +238,7 @@ func (self *LocalCommitsController) GetKeybindings(opts types.KeybindingsOpts) [
 		},
 		{
 			Key:               opts.GetKey(opts.Config.Commits.ResetCommitAuthor),
-			Handler:           self.withItem(self.amendAttribute),
+			Handler:           self.withItems(self.amendAttribute),
 			GetDisabledReason: self.require(self.singleItemSelected(self.canAmend)),
 			Description:       self.c.Tr.AmendCommitAttribute,
 			Tooltip:           self.c.Tr.AmendCommitAttributeTooltip,
@@ -690,10 +690,10 @@ func (self *LocalCommitsController) amendAttribute(commit *models.Commit) error 
 	})
 }
 
-func (self *LocalCommitsController) resetAuthor() error {
+func (self *LocalCommitsController) resetAuthor(commitIndex *models.Commit) error {
 	return self.c.WithWaitingStatus(self.c.Tr.AmendingStatus, func(gocui.Task) error {
 		self.c.LogAction(self.c.Tr.Actions.ResetCommitAuthor)
-		if err := self.c.Git().Rebase.ResetCommitAuthor(self.c.Model().Commits, self.context().GetSelectedLineIdx()); err != nil {
+		if err := self.c.Git().Rebase.ResetCommitAuthor(self.c.Model().Commits, commit.ID()); err != nil {
 			return self.c.Error(err)
 		}
 
