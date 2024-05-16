@@ -57,6 +57,11 @@ func (self *RemoteBranchesController) GetKeybindings(opts types.KeybindingsOpts)
 			DisplayOnScreen:   true,
 		},
 		{
+			Key:         opts.GetKey(opts.Config.Branches.SquashIntoWorkingTree),
+			Handler:     opts.Guards.OutsideFilterMode(self.withItem(self.squash)),
+			Description: self.c.Tr.Squash,
+		},
+		{
 			Key:               opts.GetKey(opts.Config.Branches.RebaseBranch),
 			Handler:           opts.Guards.OutsideFilterMode(self.withItem(self.rebase)),
 			GetDisabledReason: self.require(self.singleItemSelected()),
@@ -130,6 +135,10 @@ func (self *RemoteBranchesController) delete(selectedBranch *models.RemoteBranch
 
 func (self *RemoteBranchesController) merge(selectedBranch *models.RemoteBranch) error {
 	return self.c.Helpers().MergeAndRebase.MergeRefIntoCheckedOutBranch(selectedBranch.FullName())
+}
+
+func (self *RemoteBranchesController) squash(selectedBranch *models.RemoteBranch) error {
+	return self.c.Helpers().MergeAndRebase.SquashRefIntoWorkingTree(selectedBranch.FullName())
 }
 
 func (self *RemoteBranchesController) rebase(selectedBranch *models.RemoteBranch) error {
