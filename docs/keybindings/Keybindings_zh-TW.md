@@ -265,6 +265,7 @@ If you would instead like to start an interactive rebase from the selected commi
 | `` d `` | Delete | View delete options for local/remote branch. |
 | `` r `` | 將已檢出的分支變基至此分支 | Rebase the checked-out branch onto the selected branch. |
 | `` M `` | 合併到當前檢出的分支 | Merge selected branch into currently checked out branch. |
+| `` S `` | 壓縮 (Squash) |  |
 | `` f `` | 從上游快進此分支 | Fast-forward selected branch from its upstream. |
 | `` T `` | 建立標籤 |  |
 | `` s `` | Sort order |  |
@@ -354,6 +355,7 @@ If you would instead like to start an interactive rebase from the selected commi
 | `` <space> `` | 檢出 | Checkout a new local branch based on the selected remote branch, or the remote branch as a detached head. |
 | `` n `` | 新分支 |  |
 | `` M `` | 合併到當前檢出的分支 | Merge selected branch into currently checked out branch. |
+| `` S `` | 壓縮 (Squash) |  |
 | `` r `` | 將已檢出的分支變基至此分支 | Rebase the checked-out branch onto the selected branch. |
 | `` d `` | Delete | Delete the remote branch from the remote. |
 | `` u `` | Set as upstream | 將此分支設為當前分支之上游 |

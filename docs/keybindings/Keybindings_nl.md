@@ -102,6 +102,7 @@ _Legend: `<c-b>` means ctrl+b, `<a-b>` means alt+b, `B` means shift+b_
 | `` d `` | Delete | View delete options for local/remote branch. |
 | `` r `` | Rebase branch | Rebase the checked-out branch onto the selected branch. |
 | `` M `` | Merge in met huidige checked out branch | Merge selected branch into currently checked out branch. |
+| `` S `` | Squash |  |
 | `` f `` | Fast-forward deze branch vanaf zijn upstream | Fast-forward selected branch from its upstream. |
 | `` T `` | Creëer tag |  |
 | `` s `` | Sort order |  |
@@ -244,6 +245,7 @@ If you would instead like to start an interactive rebase from the selected commi
 | `` <space> `` | Uitchecken | Checkout a new local branch based on the selected remote branch, or the remote branch as a detached head. |
 | `` n `` | Nieuwe branch |  |
 | `` M `` | Merge in met huidige checked out branch | Merge selected branch into currently checked out branch. |
+| `` S `` | Squash |  |
 | `` r `` | Rebase branch | Rebase the checked-out branch onto the selected branch. |
 | `` d `` | Delete | Delete the remote branch from the remote. |
 | `` u `` | Set as upstream | Stel in als upstream van uitgecheckte branch |

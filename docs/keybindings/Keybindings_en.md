@@ -163,6 +163,7 @@ If you would instead like to start an interactive rebase from the selected commi
 | `` d `` | Delete | View delete options for local/remote branch. |
 | `` r `` | Rebase | Rebase the checked-out branch onto the selected branch. |
 | `` M `` | Merge | Merge selected branch into currently checked out branch. |
+| `` S `` | Squash |  |
 | `` f `` | Fast-forward | Fast-forward selected branch from its upstream. |
 | `` T `` | New tag |  |
 | `` s `` | Sort order |  |
@@ -266,6 +267,7 @@ If you would instead like to start an interactive rebase from the selected commi
 | `` <space> `` | Checkout | Checkout a new local branch based on the selected remote branch, or the remote branch as a detached head. |
 | `` n `` | New branch |  |
 | `` M `` | Merge | Merge selected branch into currently checked out branch. |
+| `` S `` | Squash |  |
 | `` r `` | Rebase | Rebase the checked-out branch onto the selected branch. |
 | `` d `` | Delete | Delete the remote branch from the remote. |
 | `` u `` | Set as upstream | Set the selected remote branch as the upstream of the checked-out branch. |

@@ -190,6 +190,7 @@ If you would instead like to start an interactive rebase from the selected commi
 | `` d `` | Delete | View delete options for local/remote branch. |
 | `` r `` | Перебазировать переключённую ветку на эту ветку | Rebase the checked-out branch onto the selected branch. |
 | `` M `` | Слияние с текущей переключённой веткой | Merge selected branch into currently checked out branch. |
+| `` S `` | Объединить коммиты (Squash) |  |
 | `` f `` | Перемотать эту ветку вперёд из её upstream-ветки | Fast-forward selected branch from its upstream. |
 | `` T `` | Создать тег |  |
 | `` s `` | Порядок сортировки |  |
@@ -300,6 +301,7 @@ If you would instead like to start an interactive rebase from the selected commi
 | `` <space> `` | Переключить | Checkout a new local branch based on the selected remote branch, or the remote branch as a detached head. |
 | `` n `` | Новая ветка |  |
 | `` M `` | Слияние с текущей переключённой веткой | Merge selected branch into currently checked out branch. |
+| `` S `` | Объединить коммиты (Squash) |  |
 | `` r `` | Перебазировать переключённую ветку на эту ветку | Rebase the checked-out branch onto the selected branch. |
 | `` d `` | Delete | Delete the remote branch from the remote. |
 | `` u `` | Set as upstream | Установить как upstream-ветку переключённую ветку |

@@ -1378,6 +1378,10 @@
               "type": "string",
               "default": "M"
             },
+            "squashBranch": {
+              "type": "string",
+              "default": "S"
+            },
             "viewGitFlowOptions": {
               "type": "string",
               "default": "i"

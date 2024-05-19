@@ -471,7 +471,7 @@ keybinding:
     rebaseBranch: r
     renameBranch: R
     mergeIntoCurrentBranch: M
-    squashIntoWorkingTree: S
+    squashBranch: S
     viewGitFlowOptions: i
     fastForward: f
     createTag: T

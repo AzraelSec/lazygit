@@ -190,6 +190,7 @@ _Legend: `<c-b>` means ctrl+b, `<a-b>` means alt+b, `B` means shift+b_
 | `` d `` | Delete | View delete options for local/remote branch. |
 | `` r `` | 체크아웃된 브랜치를 이 브랜치에 리베이스 | Rebase the checked-out branch onto the selected branch. |
 | `` M `` | 현재 브랜치에 병합 | Merge selected branch into currently checked out branch. |
+| `` S `` | Squash |  |
 | `` f `` | Fast-forward this branch from its upstream | Fast-forward selected branch from its upstream. |
 | `` T `` | 태그를 생성 |  |
 | `` s `` | Sort order |  |
@@ -243,6 +244,7 @@ _Legend: `<c-b>` means ctrl+b, `<a-b>` means alt+b, `B` means shift+b_
 | `` <space> `` | 체크아웃 | Checkout a new local branch based on the selected remote branch, or the remote branch as a detached head. |
 | `` n `` | 새 브랜치 생성 |  |
 | `` M `` | 현재 브랜치에 병합 | Merge selected branch into currently checked out branch. |
+| `` S `` | Squash |  |
 | `` r `` | 체크아웃된 브랜치를 이 브랜치에 리베이스 | Rebase the checked-out branch onto the selected branch. |
 | `` d `` | Delete | Delete the remote branch from the remote. |
 | `` u `` | Set as upstream | Set the selected remote branch as the upstream of the checked-out branch. |

@@ -233,6 +233,7 @@ If you would instead like to start an interactive rebase from the selected commi
 | `` d `` | Delete | View delete options for local/remote branch. |
 | `` r `` | Rebase | Rebase the checked-out branch onto the selected branch. |
 | `` M `` | 現在のブランチにマージ | Merge selected branch into currently checked out branch. |
+| `` S `` | Squash |  |
 | `` f `` | Fast-forward | Fast-forward selected branch from its upstream. |
 | `` T `` | タグを作成 |  |
 | `` s `` | 並び替え |  |
@@ -330,6 +331,7 @@ If you would instead like to start an interactive rebase from the selected commi
 | `` <space> `` | チェックアウト | Checkout a new local branch based on the selected remote branch, or the remote branch as a detached head. |
 | `` n `` | 新しいブランチを作成 |  |
 | `` M `` | 現在のブランチにマージ | Merge selected branch into currently checked out branch. |
+| `` S `` | Squash |  |
 | `` r `` | Rebase | Rebase the checked-out branch onto the selected branch. |
 | `` d `` | Delete | Delete the remote branch from the remote. |
 | `` u `` | Set as upstream | Set the selected remote branch as the upstream of the checked-out branch. |

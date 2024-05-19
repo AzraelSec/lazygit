@@ -92,6 +92,7 @@ _Legend: `<c-b>` means ctrl+b, `<a-b>` means alt+b, `B` means shift+b_
 | `` d `` | Delete | View delete options for local/remote branch. |
 | `` r `` | 将已检出的分支变基到该分支 | Rebase the checked-out branch onto the selected branch. |
 | `` M `` | 合并到当前检出的分支 | Merge selected branch into currently checked out branch. |
+| `` S `` | 压缩 |  |
 | `` f `` | 从上游快进此分支 | Fast-forward selected branch from its upstream. |
 | `` T `` | 创建标签 |  |
 | `` s `` | Sort order |  |
@@ -343,6 +344,7 @@ If you would instead like to start an interactive rebase from the selected commi
 | `` <space> `` | 检出 | Checkout a new local branch based on the selected remote branch, or the remote branch as a detached head. |
 | `` n `` | 新分支 |  |
 | `` M `` | 合并到当前检出的分支 | Merge selected branch into currently checked out branch. |
+| `` S `` | 压缩 |  |
 | `` r `` | 将已检出的分支变基到该分支 | Rebase the checked-out branch onto the selected branch. |
 | `` d `` | Delete | Delete the remote branch from the remote. |
 | `` u `` | Set as upstream | 设置为检出分支的上游 |

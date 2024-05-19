@@ -128,6 +128,7 @@ Jeśli chcesz zamiast tego rozpocząć interaktywny rebase od wybranego commita,
 | `` d `` | Usuń | Wyświetl opcje usuwania lokalnej/odległej gałęzi. |
 | `` r `` | Przebazuj | Przebazuj przełączoną gałąź na wybraną gałąź. |
 | `` M `` | Scal | Scal wybraną gałąź z aktualnie sprawdzoną gałęzią. |
+| `` S `` | Scal |  |
 | `` f `` | Szybkie przewijanie | Szybkie przewijanie wybranej gałęzi z jej źródła. |
 | `` T `` | Nowy tag |  |
 | `` s `` | Kolejność sortowania |  |
@@ -354,6 +355,7 @@ Jeśli chcesz zamiast tego rozpocząć interaktywny rebase od wybranego commita,
 | `` <space> `` | Przełącz | Przełącz na nową lokalną gałąź na podstawie wybranej gałęzi zdalnej. Nowa gałąź będzie śledzić gałąź zdalną. |
 | `` n `` | Nowa gałąź |  |
 | `` M `` | Scal | Scal wybraną gałąź z aktualnie sprawdzoną gałęzią. |
+| `` S `` | Scal |  |
 | `` r `` | Przebazuj | Przebazuj przełączoną gałąź na wybraną gałąź. |
 | `` d `` | Usuń | Usuń gałąź zdalną ze zdalnego. |
 | `` u `` | Ustaw jako upstream | Ustaw wybraną gałąź zdalną jako upstream sprawdzonej gałęzi. |
