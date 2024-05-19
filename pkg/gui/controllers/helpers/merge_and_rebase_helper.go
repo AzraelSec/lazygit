@@ -330,12 +330,11 @@ func (self *MergeAndRebaseHelper) SquashBranch(refName string) error {
 		Items: []*types.MenuItem{
 			{
 				Label:   self.c.Tr.SquashInFilesTitle,
-				OnPress: self.SquashRefIntoWorkingTree(refName),
+				OnPress: self.SquashInFiles(refName),
 				Key:     's',
 				Tooltip: utils.ResolvePlaceholderString(
 					self.c.Tr.SquashInFiles,
 					map[string]string{
-						"checkOutBranch": self.refsHelper.GetCheckedOutRef().Name,
 						"selectedBranch": refName,
 					},
 				),
@@ -347,8 +346,8 @@ func (self *MergeAndRebaseHelper) SquashBranch(refName string) error {
 				Tooltip: utils.ResolvePlaceholderString(
 					self.c.Tr.SquashInCommit,
 					map[string]string{
-						"checkOutBranch": self.refsHelper.GetCheckedOutRef().Name,
-						"selectedBranch": refName,
+						"checkedOutBranch": self.refsHelper.GetCheckedOutRef().Name,
+						"selectedBranch":   refName,
 					},
 				),
 			},
@@ -356,7 +355,7 @@ func (self *MergeAndRebaseHelper) SquashBranch(refName string) error {
 	})
 }
 
-func (self *MergeAndRebaseHelper) SquashRefIntoWorkingTree(refName string) func() error {
+func (self *MergeAndRebaseHelper) SquashInFiles(refName string) func() error {
 	checkedOutBranchName := self.refsHelper.GetCheckedOutRef().Name
 	if checkedOutBranchName == refName {
 		return func() error { return errors.New(self.c.Tr.CantMergeBranchIntoItself) }
@@ -378,7 +377,14 @@ func (self *MergeAndRebaseHelper) SquashIntoNewCommit(refName string) func() err
 	return func() error {
 		self.c.LogAction(self.c.Tr.Actions.SquashBranch)
 		err := self.c.Git().Branch.Merge(refName, git_commands.MergeOpts{Squash: true})
-		return self.CheckMergeOrRebase(err)
+		if err = self.CheckMergeOrRebase(err); err != nil {
+			return err
+		}
+		err = self.c.Git().Commit.CreateSquashCommit(refName, checkedOutBranchName)
+		if err != nil {
+			return err
+		}
+		return self.c.Refresh(types.RefreshOptions{Mode: types.ASYNC})
 	}
 }
 

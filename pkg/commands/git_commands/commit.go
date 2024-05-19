@@ -314,6 +314,13 @@ func (self *CommitCommands) CreateAmendCommit(originalSubject, newSubject, newDe
 	return self.cmd.New(cmdArgs).Run()
 }
 
+func (self *CommitCommands) CreateSquashCommit(checkedOutBranch, selectedBranch string) error {
+	cmdArgs := NewGitCmd("commit").
+		Arg("-m", fmt.Sprintf("Squash branch %s into %s", selectedBranch, checkedOutBranch)).
+		ToArgv()
+	return self.cmd.New(cmdArgs).Run()
+}
+
 // a value of 0 means the head commit, 1 is the parent commit, etc
 func (self *CommitCommands) GetCommitMessageFromHistory(value int) (string, error) {
 	cmdArgs := NewGitCmd("log").Arg("-1", fmt.Sprintf("--skip=%d", value), "--pretty=%H").
