@@ -427,7 +427,7 @@ type KeybindingBranchesConfig struct {
 	RebaseBranch           string `yaml:"rebaseBranch"`
 	RenameBranch           string `yaml:"renameBranch"`
 	MergeIntoCurrentBranch string `yaml:"mergeIntoCurrentBranch"`
-	SquashIntoWorkingTree  string `yaml:"squashIntoWorkingTree"`
+	SquashBranch           string `yaml:"squashBranch"`
 	ViewGitFlowOptions     string `yaml:"viewGitFlowOptions"`
 	FastForward            string `yaml:"fastForward"`
 	CreateTag              string `yaml:"createTag"`
@@ -848,7 +848,7 @@ func GetDefaultConfig() *UserConfig {
 				RebaseBranch:           "r",
 				RenameBranch:           "R",
 				MergeIntoCurrentBranch: "M",
-				SquashIntoWorkingTree:  "S",
+				SquashBranch:           "S",
 				ViewGitFlowOptions:     "i",
 				FastForward:            "f",
 				CreateTag:              "T",

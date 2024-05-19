@@ -25,7 +25,11 @@ type TranslationSet struct {
 	StagingTitle                          string
 	MergingTitle                          string
 	MergeConfirmTitle                     string
-	SquashConfirmTitle                    string
+	SquashBranchTitle                     string
+	SquashInFilesTitle                    string
+	SquashInFiles                         string
+	SquashInCommitTitle                   string
+	SquashInCommit                        string
 	NormalTitle                           string
 	LogTitle                              string
 	CommitSummary                         string
@@ -293,7 +297,6 @@ type TranslationSet struct {
 	InteractiveRebaseTooltip              string
 	MustSelectTodoCommits                 string
 	ConfirmMerge                          string
-	ConfirmSquash                         string
 	FwdNoUpstream                         string
 	FwdNoLocalUpstream                    string
 	FwdCommitsToPush                      string
@@ -988,7 +991,9 @@ func EnglishTranslationSet() TranslationSet {
 		StagedChanges:                        "Staged changes",
 		MainTitle:                            "Main",
 		MergeConfirmTitle:                    "Merge",
-		SquashConfirmTitle:                   "Squash",
+		SquashBranchTitle:                    "Squash",
+		SquashInFilesTitle:                   "Squash files in working tree",
+		SquashInCommitTitle:                  "Squash files in a new commit",
 		StagingTitle:                         "Main panel (staging)",
 		MergingTitle:                         "Main panel (merging)",
 		NormalTitle:                          "Main panel (normal)",
@@ -1262,7 +1267,8 @@ func EnglishTranslationSet() TranslationSet {
 		InteractiveRebaseTooltip:             "Begin an interactive rebase with a break at the start, so you can update the TODO commits before continuing.",
 		MustSelectTodoCommits:                "When rebasing, this action only works on a selection of TODO commits.",
 		ConfirmMerge:                         "Are you sure you want to merge '{{.selectedBranch}}' into '{{.checkedOutBranch}}'?",
-		ConfirmSquash:                        "Are you sure you want to squash '{{.selectedBranch}}' into '{{.checkedOutBranch}}'?",
+		SquashInFiles:                        "Are you sure you want to squash '{{.selectedBranch}}' into '{{.checkedOutBranch}}'?",
+		SquashInCommit:                       "Are you sure you want to squash '{{.selectedBranch}}' into '{{.checkedOutBranch}}'?",
 		FwdNoUpstream:                        "Cannot fast-forward a branch with no upstream",
 		FwdNoLocalUpstream:                   "Cannot fast-forward a branch whose remote is not registered locally",
 		FwdCommitsToPush:                     "Cannot fast-forward a branch with commits to push",
