@@ -120,6 +120,7 @@ func (self *BranchesController) GetKeybindings(opts types.KeybindingsOpts) []*ty
 		{
 			Key:         opts.GetKey(opts.Config.Branches.SquashBranch),
 			Handler:     opts.Guards.OutsideFilterMode(self.squash),
+			GetDisabledReason: self.require(self.singleItemSelected()),
 			Description: self.c.Tr.Squash,
 		},
 		{
