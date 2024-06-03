@@ -339,10 +339,6 @@ func (self *MergeAndRebaseHelper) SquashBranch(refName string) error {
 						"selectedBranch": refName,
 					},
 				),
-				DisabledReason: &types.DisabledReason{
-					Text:             self.c.Tr.CantMergeBranchIntoItself,
-					ShowErrorInPanel: checkedOutBranchName == refName,
-				},
 			},
 			{
 				Label:   self.c.Tr.SquashInCommitTitle,
@@ -355,10 +351,6 @@ func (self *MergeAndRebaseHelper) SquashBranch(refName string) error {
 						"selectedBranch":   refName,
 					},
 				),
-				DisabledReason: &types.DisabledReason{
-					Text:             self.c.Tr.CantMergeBranchIntoItself,
-					ShowErrorInPanel: checkedOutBranchName == refName,
-				},
 			},
 		},
 	})

@@ -57,9 +57,10 @@ func (self *RemoteBranchesController) GetKeybindings(opts types.KeybindingsOpts)
 			DisplayOnScreen:   true,
 		},
 		{
-			Key:         opts.GetKey(opts.Config.Branches.SquashBranch),
-			Handler:     opts.Guards.OutsideFilterMode(self.withItem(self.squash)),
-			Description: self.c.Tr.Squash,
+			Key:               opts.GetKey(opts.Config.Branches.SquashBranch),
+			Handler:           opts.Guards.OutsideFilterMode(self.withItem(self.squash)),
+			GetDisabledReason: self.require(self.singleItemSelected(self.notMergingIntoYourself)),
+			Description:       self.c.Tr.Squash,
 		},
 		{
 			Key:               opts.GetKey(opts.Config.Branches.RebaseBranch),
@@ -195,4 +196,15 @@ func (self *RemoteBranchesController) newLocalBranch(selectedBranch *models.Remo
 
 func (self *RemoteBranchesController) checkoutBranch(selectedBranch *models.RemoteBranch) error {
 	return self.c.Helpers().Refs.CheckoutRemoteBranch(selectedBranch.FullName(), selectedBranch.Name)
+}
+
+func (self *RemoteBranchesController) notMergingIntoYourself(branch *models.RemoteBranch) *types.DisabledReason {
+	selectedBranchName := branch.Name
+	checkedOutBranch := self.c.Helpers().Refs.GetCheckedOutRef().Name
+
+	if checkedOutBranch == selectedBranchName {
+		return &types.DisabledReason{Text: self.c.Tr.CantMergeBranchIntoItself}
+	}
+
+	return nil
 }
