@@ -108,8 +108,7 @@ func (self *WorkingTreeHelper) handleCommit(summary string, description string) 
 	cmdObj := self.c.Git().Commit.CommitCmdObj(summary, description)
 	self.c.LogAction(self.c.Tr.Actions.Commit)
 	return self.gpgHelper.WithGpgHandling(cmdObj, self.c.Tr.CommittingStatus, func() error {
-		self.commitsHelper.OnCommitSuccess()
-		return nil
+		return self.commitsHelper.OnCommitSuccess()
 	})
 }
 
@@ -120,7 +119,9 @@ func (self *WorkingTreeHelper) switchFromCommitMessagePanelToEditor(filepath str
 	// access to the last message that the user typed, and it might be very
 	// different from what was last in the commit panel. So the best we can do
 	// here is to always clear the remembered commit message.
-	self.commitsHelper.OnCommitSuccess()
+	if err := self.commitsHelper.OnCommitSuccess(); err != nil {
+		return err
+	}
 
 	self.c.LogAction(self.c.Tr.Actions.Commit)
 	return self.c.RunSubprocessAndRefresh(
@@ -149,7 +150,10 @@ func (self *WorkingTreeHelper) HandleWIPCommitPress() error {
 }
 
 func (self *WorkingTreeHelper) HandleCommitPress() error {
-	message := self.c.Contexts().CommitMessage.GetPreservedMessage()
+	message, err := self.c.Contexts().CommitMessage.GetPreservedMessage()
+	if err != nil {
+		return err
+	}
 
 	if message == "" {
 		commitPrefixConfig := self.commitPrefixConfigForRepo()

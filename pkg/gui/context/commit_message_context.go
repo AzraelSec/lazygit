@@ -1,6 +1,8 @@
 package context
 
 import (
+	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 
@@ -8,7 +10,10 @@ import (
 	"github.com/jesseduffield/lazygit/pkg/gui/keybindings"
 	"github.com/jesseduffield/lazygit/pkg/gui/types"
 	"github.com/jesseduffield/lazygit/pkg/utils"
+	"github.com/spf13/afero"
 )
+
+const PreservedCommitMessageFileName = "LAZYGIT_PENDING_COMMIT"
 
 type CommitMessageContext struct {
 	c *ContextCommon
@@ -33,8 +38,6 @@ type CommitMessageViewModel struct {
 	// we remember the initial message so that we can tell whether we should preserve
 	// the message; if it's still identical to the initial message, we don't
 	initialMessage string
-	// the full preserved message (combined summary and description)
-	preservedMessage string
 	// invoked when pressing enter in the commit message panel
 	onConfirm func(string, string) error
 	// invoked when pressing the switch-to-editor key binding
@@ -75,16 +78,41 @@ func (self *CommitMessageContext) GetSelectedIndex() int {
 	return self.viewModel.selectedindex
 }
 
+func (self *CommitMessageContext) GetPreservedMessagePath() string {
+	return filepath.Join(self.c.Git().RepoPaths.WorktreeGitDirPath(), PreservedCommitMessageFileName)
+}
+
 func (self *CommitMessageContext) GetPreserveMessage() bool {
 	return self.viewModel.preserveMessage
 }
 
-func (self *CommitMessageContext) GetPreservedMessage() string {
-	return self.viewModel.preservedMessage
+func (self *CommitMessageContext) GetPreservedMessage() (string, error) {
+	buf, err := afero.ReadFile(self.c.Fs, self.GetPreservedMessagePath())
+	if os.IsNotExist(err) {
+		return "", nil
+	}
+	if err != nil {
+		return "", err
+	}
+	return string(buf), nil
 }
 
-func (self *CommitMessageContext) SetPreservedMessage(message string) {
-	self.viewModel.preservedMessage = message
+func (self *CommitMessageContext) SetPreservedMessage(message string) error {
+	preservedFilePath := self.GetPreservedMessagePath()
+
+	_, err := self.c.Fs.Stat(preservedFilePath)
+	if err != nil && !os.IsNotExist(err) {
+		return err
+	}
+	pendingCommitExists := err == nil || !os.IsNotExist(err)
+	if !pendingCommitExists && len(message) == 0 {
+		return nil
+	}
+	if pendingCommitExists && len(message) == 0 {
+		return self.c.Fs.Remove(preservedFilePath)
+	}
+
+	return afero.WriteFile(self.c.Fs, preservedFilePath, []byte(message), 0o644)
 }
 
 func (self *CommitMessageContext) GetInitialMessage() string {

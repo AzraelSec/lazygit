@@ -34,7 +34,9 @@ func (self *TagsHelper) OpenCreateTagPrompt(ref string, onCreate func()) error {
 				}
 			}
 
-			self.commitsHelper.OnCommitSuccess()
+			if err := self.commitsHelper.OnCommitSuccess(); err != nil {
+				return err
+			}
 
 			return self.c.Refresh(types.RefreshOptions{
 				Mode: types.ASYNC, Scope: []types.RefreshableView{types.COMMITS, types.TAGS},

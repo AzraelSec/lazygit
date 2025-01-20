@@ -101,7 +101,9 @@ func (self *CommitsHelper) SwitchToEditor() error {
 		return err
 	}
 
-	self.CloseCommitMessagePanel()
+	if err := self.CloseCommitMessagePanel(); err != nil {
+		return err
+	}
 
 	return self.c.Contexts().CommitMessage.SwitchToEditor(filepath)
 }
@@ -113,7 +115,11 @@ func (self *CommitsHelper) UpdateCommitPanelView(message string) {
 	}
 
 	if self.c.Contexts().CommitMessage.GetPreserveMessage() {
-		preservedMessage := self.c.Contexts().CommitMessage.GetPreservedMessage()
+		preservedMessage, err := self.c.Contexts().CommitMessage.GetPreservedMessage()
+		if err != nil {
+			self.c.Log.Errorf("error during persisted commit message retrieval: %s", err.Error())
+			return
+		}
 		self.SetMessageAndDescriptionInView(preservedMessage)
 		return
 	}
@@ -133,7 +139,9 @@ type OpenCommitMessagePanelOpts struct {
 
 func (self *CommitsHelper) OpenCommitMessagePanel(opts *OpenCommitMessagePanelOpts) {
 	onConfirm := func(summary string, description string) error {
-		self.CloseCommitMessagePanel()
+		if err := self.CloseCommitMessagePanel(); err != nil {
+			return err
+		}
 
 		return opts.OnConfirm(summary, description)
 	}
@@ -153,11 +161,12 @@ func (self *CommitsHelper) OpenCommitMessagePanel(opts *OpenCommitMessagePanelOp
 	self.c.Context().Push(self.c.Contexts().CommitMessage)
 }
 
-func (self *CommitsHelper) OnCommitSuccess() {
+func (self *CommitsHelper) OnCommitSuccess() error {
 	// if we have a preserved message we want to clear it on success
 	if self.c.Contexts().CommitMessage.GetPreserveMessage() {
-		self.c.Contexts().CommitMessage.SetPreservedMessage("")
+		return self.c.Contexts().CommitMessage.SetPreservedMessage("")
 	}
+	return nil
 }
 
 func (self *CommitsHelper) HandleCommitConfirm() error {
@@ -175,11 +184,13 @@ func (self *CommitsHelper) HandleCommitConfirm() error {
 	return nil
 }
 
-func (self *CommitsHelper) CloseCommitMessagePanel() {
+func (self *CommitsHelper) CloseCommitMessagePanel() error {
+	var err error
+
 	if self.c.Contexts().CommitMessage.GetPreserveMessage() {
 		message := self.JoinCommitMessageAndUnwrappedDescription()
 		if message != self.c.Contexts().CommitMessage.GetInitialMessage() {
-			self.c.Contexts().CommitMessage.SetPreservedMessage(message)
+			err = self.c.Contexts().CommitMessage.SetPreservedMessage(message)
 		}
 	} else {
 		self.SetMessageAndDescriptionInView("")
@@ -191,6 +202,8 @@ func (self *CommitsHelper) CloseCommitMessagePanel() {
 	self.c.Views().CommitDescription.Visible = false
 
 	self.c.Context().Pop()
+
+	return err
 }
 
 func (self *CommitsHelper) OpenCommitMenu(suggestionFunc func(string) []*types.Suggestion) error {

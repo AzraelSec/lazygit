@@ -76,8 +76,7 @@ func (self *CommitDescriptionController) switchToCommitMessage() error {
 }
 
 func (self *CommitDescriptionController) close() error {
-	self.c.Helpers().Commits.CloseCommitMessagePanel()
-	return nil
+	return self.c.Helpers().Commits.CloseCommitMessagePanel()
 }
 
 func (self *CommitDescriptionController) confirm() error {

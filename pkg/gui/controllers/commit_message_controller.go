@@ -144,8 +144,7 @@ func (self *CommitMessageController) confirm() error {
 }
 
 func (self *CommitMessageController) close() error {
-	self.c.Helpers().Commits.CloseCommitMessagePanel()
-	return nil
+	return self.c.Helpers().Commits.CloseCommitMessagePanel()
 }
 
 func (self *CommitMessageController) openCommitMenu() error {

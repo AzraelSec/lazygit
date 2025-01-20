@@ -418,11 +418,13 @@ func (self *LocalCommitsController) handleReword(summary string, description str
 	} else {
 		err = self.c.Git().Rebase.RewordCommit(self.c.Model().Commits, self.c.Contexts().LocalCommits.GetSelectedLineIdx(), summary, description)
 	}
-
 	if err != nil {
 		return err
 	}
-	self.c.Helpers().Commits.OnCommitSuccess()
+
+	if err := self.c.Helpers().Commits.OnCommitSuccess(); err != nil {
+		return err
+	}
 	return self.c.Refresh(types.RefreshOptions{Mode: types.ASYNC})
 }
 
